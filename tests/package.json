@@ -1,0 +1,1 @@
+{"name":"bcr-tests","private":true,"type":"module","scripts":{"test":"node e2e.mjs"},"devDependencies":{"@electric-sql/pglite":"0.5.9","puppeteer-core":"^23.0.0"},"dependencies":{"puppeteer-core":"^25.13.0"}}

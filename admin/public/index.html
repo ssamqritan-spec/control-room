@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Bursary Control Room</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f172a'/%3E%3Cpath d='M8 21l5-6 4 3 7-9' fill='none' stroke='%2334d399' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ============ ACCESS GATE ============ -->
+<section id="gate" class="gate" hidden>
+  <form id="gateForm" class="gate-card" autocomplete="off">
+    <div class="brand big"><span class="logo">BC</span><span>Bursary<small>CONTROL ROOM</small></span></div>
+    <h1>Restricted access</h1>
+    <p class="muted">This workspace holds applicant details and payment records for Elimu Kenya and KMTC Bursary.</p>
+    <label>Access password<input id="gatePassword" type="password" required autofocus></label>
+    <p id="gateError" class="form-error" role="alert"></p>
+    <button class="primary" type="submit">Enter control room</button>
+  </form>
+</section>
+
+<!-- ============ APP ============ -->
+<div id="app" class="app" hidden>
+  <aside class="side">
+    <div class="brand"><span class="logo">BC</span><span>Bursary<small>CONTROL ROOM</small></span></div>
+
+    <nav>
+      <button class="nav" data-site="all" data-view="overview"><i>◧</i>Overview <em>both sites</em></button>
+
+      <div class="group elimu"><span class="dot"></span>ELIMU KENYA</div>
+      <button class="nav" data-site="elimu" data-view="applications"><i>▤</i>Applications<b data-count="elimu.applications"></b></button>
+      <button class="nav" data-site="elimu" data-view="payments"><i>◈</i>Payments<b data-count="elimu.payment_submitted" class="alert"></b></button>
+      <button class="nav" data-site="elimu" data-view="activity"><i>◷</i>Activity</button>
+
+      <div class="group kmtc"><span class="dot"></span>KMTC BURSARY</div>
+      <button class="nav" data-site="kmtc" data-view="applications"><i>▤</i>Applications<b data-count="kmtc.applications"></b></button>
+      <button class="nav" data-site="kmtc" data-view="payments"><i>◈</i>Payments<b data-count="kmtc.payment_submitted" class="alert"></b></button>
+      <button class="nav" data-site="kmtc" data-view="activity"><i>◷</i>Activity</button>
+    </nav>
+
+    <div class="side-foot">
+      <div class="conn"><span id="connDot" class="pulse"></span><span id="connText">Connecting…</span></div>
+      <button id="logout" class="ghost" hidden>Sign out</button>
+    </div>
+  </aside>
+
+  <main>
+    <header class="top">
+      <div>
+        <span id="crumb" class="crumb"></span>
+        <h1 id="title">Overview</h1>
+      </div>
+      <div class="top-actions">
+        <span id="updated" class="muted small"></span>
+        <button id="refresh" class="secondary">↻ Refresh</button>
+      </div>
+    </header>
+    <p id="notice" class="notice" role="status" hidden></p>
+
+    <!-- OVERVIEW -->
+    <section id="overview" hidden>
+      <div class="totals" id="totals"></div>
+      <div class="sites" id="siteCards"></div>
+      <p class="fine">Each website is counted separately. “To receive” is the bursary amount the applicant was shown; “Fees received” is only what you have verified against an M-Pesa message.</p>
+    </section>
+
+    <!-- LIST VIEWS -->
+    <section id="records" hidden>
+      <div class="filters">
+        <label class="grow">Search<input id="search" type="search" placeholder="Name, phone, email, reference or M-Pesa code"></label>
+        <label id="statusWrap">Status<select id="status"></select></label>
+        <label id="bandWrap">Band<select id="band"><option value="">All bands</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></label>
+        <label>From<input id="from" type="date"></label>
+        <label>To<input id="to" type="date"></label>
+        <button id="export" class="secondary">↓ Export CSV</button>
+      </div>
+      <div class="table-card">
+        <div class="table-scroll"><table id="table"><thead></thead><tbody></tbody></table></div>
+        <div id="empty" class="empty" hidden></div>
+        <footer class="pager">
+          <span id="range" class="muted small"></span>
+          <span><button id="prev" class="secondary sm">← Previous</button> <button id="next" class="secondary sm">Next →</button></span>
+        </footer>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- ============ DETAIL DRAWER ============ -->
+<div id="scrim" class="scrim" hidden></div>
+<aside id="drawer" class="drawer" hidden aria-label="Applicant details">
+  <div class="drawer-head">
+    <div><span id="dSite" class="site-chip"></span><h2 id="dName">—</h2><p id="dRef" class="muted small mono"></p></div>
+    <button id="dClose" class="ghost" aria-label="Close">✕</button>
+  </div>
+  <div id="dBody" class="drawer-body"></div>
+</aside>
+
+<script src="app.js"></script>
+</body>
+</html>

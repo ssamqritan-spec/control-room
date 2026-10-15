@@ -1,0 +1,25 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Pay processing fee | Elimu Kenya</title><link rel="icon" type="image/svg+xml" href="favicon.svg"/><meta name="theme-color" content="#ce182c"/><link rel="stylesheet" href="styles.css"/></head><body>
+<header><a class="brand" href="index.html"><img class="logo" src="favicon.svg" alt="" width="40" height="40"/><span>ELIMU KENYA<small>BURSARY FOR LEARNERS</small></span></a><div class="bell-wrap"><button class="bell" id="bell" aria-label="Notifications" aria-expanded="false">🔔<i id="dot" hidden></i></button><div class="notes" id="notes" hidden><b>Notifications</b><p id="notesEmpty">No notifications yet.</p><ul id="noteList"></ul></div></div></header>
+<main class="pay section">
+<ol class="trail"><li class="done">About the bursary</li><li class="done">Your details</li><li class="on">Pay processing fee</li></ol>
+<div id="noApp" hidden><h1 class="pt">No application found.</h1><p>Start your application first.</p><a class="button" href="apply.html">Apply for bursary</a></div>
+<div id="payView" hidden>
+<p class="eyebrow red">LAST STEP</p><h1 class="pt">Pay the processing fee.</h1>
+<div class="sum"><div><span>Reference</span><b id="sRef"></b></div><div><span>Your bursary</span><b id="sAmt"></b></div><div class="due"><span>Processing fee to pay now</span><b id="sFee"></b></div></div>
+<h2 class="h2s">Choose how to pay</h2>
+<div class="methods">
+<button type="button" class="method" data-ready="0" data-m="ecitizen"><span class="ml"><img src="assets/pay-ecitizen.jpg" alt="eCitizen"/></span><b>eCitizen</b><small>Not available yet</small></button>
+<button type="button" class="method" data-ready="0" data-m="kcb"><span class="ml"><img src="assets/pay-kcb.jpg" alt="KCB Bank"/></span><b>KCB Bank</b><small>Not available yet</small></button>
+<button type="button" class="method" data-ready="0" data-m="equity"><span class="ml"><img src="assets/pay-equity.jpg" alt="Equity Bank"/></span><b>Equity Bank</b><small>Not available yet</small></button>
+<button type="button" class="method" data-ready="1" data-m="send"><span class="ml"><svg viewBox="0 0 120 56" role="img" aria-label="M-Pesa"><rect width="120" height="56" rx="10" fill="#43b02a"/><text x="60" y="35" text-anchor="middle" font-family="Arial" font-weight="800" font-size="22" fill="#fff">M-PESA</text></svg></span><b>Send money</b><small class="ok">Available now</small></button>
+</div>
+<section id="sendPanel" class="sendp" hidden><h2 class="h2s">Pay with M-Pesa Send money</h2>
+<ol class="msteps"><li>Open <b>M-Pesa</b> on your phone.</li><li>Choose <b>Send money</b>.</li><li>Enter the number <b class="num">0732532860</b>.</li><li>Enter the amount <b class="num" id="stAmt"></b>.</li><li>Enter your <b>M-Pesa PIN</b> and send.</li></ol>
+<form id="payForm"><p class="hint">After you send, enter the M-Pesa confirmation code from the SMS (10 letters and numbers).</p><div class="form-grid"><label>M-Pesa confirmation code<input id="code" maxlength="10" minlength="10" pattern="[A-Za-z0-9]{10}" required autocomplete="off" placeholder="e.g. SJK3L9XYZ1" style="text-transform:uppercase"/></label><label>Phone you paid from<input id="payPhone" type="tel" required pattern="[+]?[0-9 ()-]{9,20}"/></label></div><p id="payStatus" role="status"></p><button class="button" id="payBtn" type="submit">I have paid, verify my payment</button></form></section>
+<section id="waitView" class="sendp" hidden><div class="spin"></div><h2 class="h2s">Verifying your payment.</h2><p>This can take a few minutes. Keep this page open. You will get a notification as soon as it is confirmed.</p></section>
+</div>
+<section id="doneView" class="done-card" hidden><span class="success-icon">✓</span><h1 class="pt">You have successfully applied.</h1><p>Your payment is confirmed and your bursary application is now submitted. We will contact you on your phone and email about the next steps.</p><div class="sum"><div><span>Reference</span><b id="dRef"></b></div><div><span>Bursary amount</span><b id="dAmt"></b></div></div><button class="button" onclick="window.print()">Print receipt</button> <a class="text-button" href="index.html">Back to website →</a></section>
+</main>
+<div class="toast" id="toast" role="alert" hidden><button aria-label="Close" id="toastX">×</button><b>This service is unavailable</b><p>Our technicians are working on it. We will inform you once the issue is resolved. Please use <b>Send money</b>: <span class="num">0732532860</span></p></div>
+<div class="toast ok" id="okToast" role="status" hidden><b>✓ Application successful</b><p>Your payment is confirmed. You have successfully applied.</p></div>
+<script src="config.js"></script><script src="pay.js"></script></body></html>

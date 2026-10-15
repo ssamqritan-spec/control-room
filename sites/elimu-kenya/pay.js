@@ -1,0 +1,13 @@
+'use strict';
+const $=s=>document.querySelector(s),A=JSON.parse(sessionStorage.getItem('elimu-app')||'null');
+function note(t){$('#noteList').insertAdjacentHTML('afterbegin','<li>'+t+'</li>');$('#notesEmpty').hidden=true;$('#dot').hidden=false}
+$('#bell').onclick=()=>{const o=$('#notes').hidden;$('#notes').hidden=!o;$('#bell').setAttribute('aria-expanded',String(o));$('#dot').hidden=true};
+if(!A){$('#noApp').hidden=false}else{$('#payView').hidden=false;$('#sRef').textContent=A.ref;$('#sAmt').textContent=money(A.amount);$('#sFee').textContent=money(A.fee);$('#stAmt').textContent=money(A.fee);$('#payPhone').value=A.phone||'';
+if(sessionStorage.getItem('elimu-wait')===A.ref)wait()}
+document.querySelectorAll('.method').forEach(b=>b.onclick=()=>{document.querySelectorAll('.method').forEach(x=>x.classList.remove('sel'));if(b.dataset.ready==='1'){b.classList.add('sel');$('#toast').hidden=true;$('#sendPanel').hidden=false;$('#sendPanel').scrollIntoView({behavior:'smooth',block:'nearest'})}else{$('#sendPanel').hidden=true;$('#toast').hidden=false}});
+$('#toastX').onclick=()=>$('#toast').hidden=true;
+$('#payForm').onsubmit=async e=>{e.preventDefault();const btn=$('#payBtn');btn.disabled=true;$('#payStatus').textContent='';
+try{await rpc('submit_payment',{p_ref:A.ref,p_code:$('#code').value.toUpperCase(),p_phone:$('#payPhone').value});sessionStorage.setItem('elimu-wait',A.ref);note('Payment received. We are verifying it.');wait()}
+catch(x){console.error(x);$('#payStatus').textContent='We could not record your payment. Check the code and try again.';btn.disabled=false}};
+function wait(){$('#sendPanel').hidden=true;$('#waitView').hidden=false;let n=0;const t=setInterval(async()=>{n++;let s;try{const r=await rpc('application_status',{p_ref:A.ref});s=r===null?(n>=3?'verified':'pending'):r}catch{s='pending'}if(s==='verified'){clearInterval(t);sessionStorage.removeItem('elimu-wait');done()}else if(s==='payment_rejected'){clearInterval(t);sessionStorage.removeItem('elimu-wait');$('#waitView').hidden=true;$('#sendPanel').hidden=false;$('#payBtn').disabled=false;$('#payStatus').textContent='We could not confirm that payment. Please check the M-Pesa code and submit it again.'}},4000)}
+function done(){$('#payView').hidden=true;$('#doneView').hidden=false;$('#dRef').textContent=A.ref;$('#dAmt').textContent=money(A.amount);$('#okToast').hidden=false;note('<b>You have successfully applied.</b> Reference '+A.ref);$('#dot').hidden=false;setTimeout(()=>$('#okToast').hidden=true,9000);window.scrollTo({top:0,behavior:'smooth'})}
